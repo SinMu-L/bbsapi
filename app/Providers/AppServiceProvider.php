@@ -31,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Link::observe(\App\Observers\LinkObserver::class);
 
         \Illuminate\Pagination\Paginator::useBootstrap();
+        JsonResource::withoutWrapping();
     }
 }
