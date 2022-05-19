@@ -59,7 +59,10 @@ class AuthorizationsController extends Controller
 
                 break;
         }
+
         // TODO 这里为什么就可以获取token了呢？
+        // 补充：auth('api')  等同于 Auth::guard('api')，在 config 的 auth.php 文件这中配置
+        // 对应的值是jwt，
         $token = auth('api')->login($user);
         return $this->responseWithToken($token)->setStatusCode(201);
 
@@ -89,6 +92,7 @@ class AuthorizationsController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
             // TODO 这里为什么可以直接使用 factory 方法呢？
+            // auth('api')->factory() 等同于调用了 Tymon\JWTAuth\JWTGuard 中的 factory 方法？
             'expires_in' => auth('api')->factory()->getTTL() *60
         ]);
     }
