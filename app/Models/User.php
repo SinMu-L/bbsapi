@@ -10,6 +10,7 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
 {
@@ -95,7 +96,7 @@ class User extends Authenticatable implements MustVerifyEmailContract, JWTSubjec
     public function setAvatarAttribute($path)
     {
         // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
-        if ( ! \Str::startsWith($path, 'http')) {
+        if ( ! Str::startsWith($path, 'http')) {
 
             // 拼接完整的 URL
             $path = config('app.url') . "/uploads/images/avatars/$path";
